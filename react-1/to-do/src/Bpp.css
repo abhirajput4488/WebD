@@ -1,0 +1,18 @@
+h1{
+    font-weight: 700;
+    font-size: 45px;
+    margin: 10px;
+    margin-left: 25px;
+  }
+  input{
+    width: 100%;
+  }
+  .item-container{
+    text-align: left;
+  }
+  .ab{
+  min-width: 80px;
+  }
+  .ak{
+    margin: 10px 5px;
+  }
