@@ -1,7 +1,7 @@
-const http = require('http');
-const fs= require('fs');
 
-const server=http.createServer((req,res)=>{
+const fs= require('fs');
+const requestHandler=require('./user1.js');
+const userrequestHandler=(req,res)=>{
   console.log(req.url , req.method);//sending request to server
 // routing request
 
@@ -40,10 +40,29 @@ else if(req.url === '/products'){
   return res.end();
 }
 else if(req.url.toLowerCase() === '/submit-details' && req.method == "POST"){
-  req.on('data',(chunk)=>{  //listening to data event or parsing data or getting data
+  const body=[];
+  req.on('data',(chunk)=>{  //reading chunk event or parsing data or getting data
     console.log(chunk);
+    body.push(chunk);
   });
-  fs.writeFileSync('user.txt','Abhishek Rao');
+  req.on('end',()=>{  // buffering chunks of data
+    const fullBody= Buffer.concat(body).toString();
+    console.log(fullBody);
+
+    const prams=new URLSearchParams(fullBody); //parsing request body
+    // const bodyObj={};
+    // for(const [key,value] of prams.entries()){
+    //   bodyObj[key]=value;
+    //   //console.log(key,value);
+    // }
+    //OR
+
+    const bodyObj=Object.fromEntries(prams);
+    console.log(bodyObj);
+    fs.writeFileSync('user.txt',JSON.stringify(bodyObj));  //writing data to file
+    // output: { username : 'Abhishek Rao' gender : 'male' }
+  });
+  //fs.writeFileSync('user.txt','Abhishek Rao');
   res.statusCode=302;
   res.setHeader('Location','/');
   return res.end();
@@ -56,9 +75,6 @@ else{
   res.write('</html>');
   res.end();
 }
-});
+};
+module.exports=userrequestHandler;
 
-const port=3001;
-server.listen(port,() =>{
-  console.log(`server running on adderss http://localhost:${port}`);
-});
