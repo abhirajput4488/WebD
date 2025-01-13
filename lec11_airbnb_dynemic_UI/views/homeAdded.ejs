@@ -1,0 +1,23 @@
+<%- include('partials/head') %>
+  </head>
+   <style>
+    .inline-block  {
+      background-color: #f56565;
+      color: white;
+      padding: 0.5rem 1.5rem;
+      border-radius: 0.5rem;
+      transition: background-color 0.3s, transform 0.3s;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); 
+    }
+  </style> 
+  <body>
+    <%- include('partials/nav') %>
+    <main class="container mx-auto mt-8 p-4">
+      <div class="bg-white shadow-md rounded-lg p-6 text-center">
+        <h1 class="text-3xl font-bold text-red-500 mb-4">Home Registered Successfully</h1>
+        <p class="text-lg text-gray-600">Your home has been added to our listings.</p>
+        <a href="/" class="inline-block mt-6 bg-red-500 text-white py-2 px-4 rounded hover:bg-red-400 transition duration-300">Return to Home</a>
+      </div>
+    </main>
+  </body>
+</html>
